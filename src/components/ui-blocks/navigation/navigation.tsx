@@ -1,5 +1,5 @@
 import { Link } from "react-router"
-import { Dumbbell, User, Settings } from "lucide-react"
+import { Dumbbell, Settings, BarChart2Icon } from "lucide-react"
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -9,7 +9,7 @@ import {
 
 const navItems = [
   { name: "Exercises", href: "/exercises", icon: Dumbbell },
-  { name: "Profile", href: "/profile", icon: User },
+  { name: "Stats", href: "/stats", icon: BarChart2Icon },
   { name: "Settings", href: "/settings", icon: Settings },
 ]
 
