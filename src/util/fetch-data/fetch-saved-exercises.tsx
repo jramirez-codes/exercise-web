@@ -5,6 +5,7 @@ const savedExercises = [
   { id: "3", name: "Yoga Flow", duration: "60 min", difficulty: "Beginner" },
   { id: "4", name: "Strength Training", duration: "50 min", difficulty: "Intermediate" },
 ]
-export function fetchSavedExercises() {
+export async function fetchSavedExercises() {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
   return savedExercises  
 }
