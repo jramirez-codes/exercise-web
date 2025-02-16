@@ -1,20 +1,18 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Clock, Zap } from "lucide-react"
-
-const savedExercises = [
-  { id: 1, name: "Full Body Workout", duration: "45 min", difficulty: "Intermediate" },
-  { id: 2, name: "HIIT Cardio", duration: "30 min", difficulty: "Advanced" },
-  { id: 3, name: "Yoga Flow", duration: "60 min", difficulty: "Beginner" },
-  { id: 4, name: "Strength Training", duration: "50 min", difficulty: "Intermediate" },
-]
+import { useQuery } from "@tanstack/react-query"
+import { fetchSavedExercises } from "@/util/fetch-data/fetch-saved-exercises"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export default function SavedExercises() {
+  const savedExercises = useQuery({ queryKey: ['saved-exercises'], queryFn: fetchSavedExercises })
   return (
     <div>
       <h2 className="text-2xl font-semibold mb-4">Quick Access: Saved Exercises</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {savedExercises.map((exercise) => (
+        {/* Example Card */}
+        {savedExercises.data?.map((exercise) => (
           <Card key={exercise.id}>
             <CardHeader>
               <CardTitle>{exercise.name}</CardTitle>
@@ -38,6 +36,34 @@ export default function SavedExercises() {
             </CardContent>
           </Card>
         ))}
+        {/* Loading Card */}
+        {!savedExercises.data && (
+          <Card >
+            <CardHeader>
+              <CardTitle>
+                <Skeleton className="w-[50%] h-5">
+                </Skeleton>
+              </CardTitle>
+              <CardDescription>
+                <div className="flex items-center space-x-2">
+                  <Clock className="h-4 w-4" />
+                  <Skeleton className="h-5 w-10" />
+                </div>
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <Zap className="h-4 w-4" />
+                  <Skeleton className="h-5 w-20" />
+                </div>
+                <Button variant="outline" size="sm" disabled>
+                  Loading
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </div>
   )
